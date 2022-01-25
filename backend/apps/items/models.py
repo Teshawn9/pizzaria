@@ -1,6 +1,5 @@
 from django.db import models
 from cloudinary.models import CloudinaryField
-from config.constants import *
 
 
 class Item(models.Model):
@@ -8,7 +7,7 @@ class Item(models.Model):
         db_table = 'item'
 
     status = models.CharField(
-        'status', blank=False, default='inactive', max_length=15, db_index=True, choices=STATUS
+        'status', blank=False, default='inactive', max_length=15, db_index=True,
     )
 
     name = models.CharField(
