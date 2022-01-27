@@ -1,87 +1,47 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import Loading from '../assets/img/loading.gif';
-import postImage from '../assets/img/newspaper-icon-png.jpg';
-import PostForm from '../components/Posts/PostForm';
-import Post from '../components/Posts/Post';
-import { fetchPosts } from '../reducks/posts/operations';
-import { getPosts } from '../reducks/posts/selectors';
+import React from 'react';
+import Header from '../components/Header';
+import MainImg from '../assets/img/main-img.png'
+import About from '../components/About';
+import item1 from '../assets/img/item-1.svg';
+import Footer from '../components/Footer'
 
-const Home = () => {
-    const dispatch = useDispatch();
-    const selector = useSelector(state => state);
-    const posts = getPosts(selector);
-    let [page, setPage] = useState(1);
-    const [isLoading, setIsLoading] = useState(false);
-
-    useEffect(() => {
-        dispatch(fetchPosts({ page }));
-        // eslint-disable-next-line
-    }, []);
-
-    // Infinite Scroll Pagination Flow
-    const observer = useRef();
-
-    // Reference to a very last post element
-    const lastPostElement = useCallback(
-        node => {
-            if (isLoading) return;
-            // Disconnect reference from previous element, so that new last element is hook up correctly
-            if (observer.current) {
-                observer.current.disconnect();
-            }
-
-            // Observe changes in the intersection of target element
-            observer.current = new IntersectionObserver(async entries => {
-                // That means that we are on the page somewhere, In our case last element of the page
-                if (entries[0].isIntersecting && posts.next) {
-                    // Proceed fetch new page
-                    setIsLoading(true);
-                    setPage(++page);
-                    await dispatch(fetchPosts({ page }));
-                    setIsLoading(false);
-                }
-            });
-
-            // Reconnect back with the new last post element
-            if (node) {
-                observer.current.observe(node);
-            }
-        },
-        // eslint-disable-next-line
-        [posts.next]
-    );
-
-    return (
-        <section className="content">
-            <PostForm />
-            <section className="posts">
-                {posts.results.length > 0 ? (
-                    <ul>
-                        {posts.results.map((post, index) => {
-                            return (
-                                <Post
-                                    ref={index === posts.results.length - 1 ? lastPostElement : null}
-                                    key={post.id}
-                                    post={post}
-                                />
-                            );
-                        })}
-                    </ul>
-                ) : (
-                    <div className="no-post">
-                        <img width="72" src={postImage} alt="icon" />
-                        <p>No posts here yet...</p>
-                    </div>
-                )}
-                {isLoading && (
-                    <div className="loading">
-                        <img src={Loading} className="" alt="" />
-                    </div>
-                )}
-            </section>
+function Home() {
+  return <>
+  
+<Header />
+<section class="main-img">
+      <img src={MainImg} alt="image" />
+      <div class="main-txt">
+        <p><span>Dino’s Pizzeria</span></p>
+        <p>Pizza is our superpower.</p>
+      </div>
+    </section>
+    <About />
+    <center> <p class='paragraph'>---------Pizza-Menu--------</p></center>
+  
+    <section class="item-conatiner">
+      <section class="item-grid">
+        <div class="item">
+          <img src={item1} alt="item" />
+          <div class="description">
+            <h2>Peppy veg</h2>
+            <p>
+              The Awesome Peppy veg with onions
+              and tomato with cheese
+            </p>
+          </div>
+          <div class="item-bottom">
+            <p>$50</p>
+            <button>Add</button>
+          </div>
+        </div>
         </section>
-    );
-};
+        </section>
+        <Footer />
+      
+  </>;
+}
+  
 
 export default Home;
+
