@@ -4,7 +4,7 @@ import Cart from "./containers/Cart";
 import Home from "./containers/Home";
 import Shipping from "./containers/Shipping";
 import Signin from "./containers/Signin";
-import SignUp from "./containers/SignUp";
+import Signup from "./containers/Signup";
 import OrderConfirmation from "./containers/order-confirmation";
 
 const Router = () => {
@@ -12,7 +12,7 @@ const Router = () => {
     <>
       <Switch>
         <Route exact path={"/"} component={Home} />
-        <Route exact path={"/signup"} component={SignUp} />
+        <Route exact path={"/signup"} component={Signup} />
         <Route exact path={"/signin"} component={Signin} />
         <Route exact path={"/cart"} component={Cart} />
         <Route exact path={"/shipping"} component={Shipping} />
