@@ -1,33 +1,86 @@
-import React from 'react';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import MainImage from '../components/MainImage';
-function Signup() {
-  return (
-    
-      <>
-      <Header />
-      <MainImage />
-     
-    <section class="gradient"></section>
-    <section class="sign-up">
-      <div class="sign-up-form">
-        <p><span> Dino’s pizzeria</span></p>
-        <p>Sign Up</p>
-        <div class="input-feilds">
-          <label for="name">Name</label><br />
-          <input type="text" placeholder="UserName" /><br /><br />
-          <label for="email">Email</label> <br />
-          <input type="email" placeholder="User Email Address" /><br /><br />
-          <label for="password">Password</label><br />
-          <input type="password" placeholder="Type Your Password" />
-        </div>
-        <button>Sign Up</button>
-      </div>
-    </section>
-    <Footer />
-      </>
-  )
-}
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { signUp } from "../reducks/users/operations";
+// import CrossX from "../assets/img/cross.png";
+import Home from "../containers/Home";
+import { push } from "connected-react-router";
 
-export default Signup;
+const SignUp = () => {
+  const dispatch = useDispatch();
+
+  const closeButton = () => {
+    dispatch(push("/"));
+  };
+  const [user_name, setUserName] = useState(""),
+    [email, setEmail] = useState(""),
+    [password, setPassword] = useState("");
+  const inputUserName = (event) => {
+    setUserName(event.target.value);
+  };
+  const inputEmail = (event) => {
+    setEmail(event.target.value);
+  };
+  const inputPassword = (event) => {
+    setPassword(event.target.value);
+  };
+  const signUpButton = () => {
+    dispatch(signUp(user_name, email, password));
+    setUserName("");
+    setEmail("");
+    setPassword("");
+  };
+  return (
+    <>
+      <Home />
+      <section class="popup">
+        <div class="popup-inner">
+          <span onClick={closeButton}>
+            {/* <img src={CrossX} class="close" /> */}
+          </span>
+          <div class="input">
+            <br />
+            <p class="bold">Dinno's Pizzeria</p>
+            <p class="bold2">SIGN UP</p>
+            <input
+              type="email"
+              class="form-control"
+              onChange={inputUserName}
+              placeholder="Enter User Name"
+              value={user_name}
+              required
+            />
+            <input
+              type="email"
+              class="form-control"
+              onChange={inputEmail}
+              placeholder="Enter email"
+              value={email}
+              required
+            />
+            <br />
+            <input
+              type="password"
+              class="form-control"
+              onChange={inputPassword}
+              placeholder="Password"
+              value={password}
+              required
+            />
+          </div>
+
+          <button class="button" onClick={signUpButton}>
+            SIGN UP
+          </button>
+          <p class="bottom">
+            Have an Account?{" "}
+            <a href="/signin">
+              <u>Sign In.</u>
+            </a>{" "}
+          </p>
+        </div>
+      </section>
+    </>
+  );
+};
+
+export default SignUp;

@@ -1,7 +1,7 @@
 from django.db import models
 from apps.items.models import Item
 from apps.users.models import User
-
+from config.constants import *
 
 
 class Order(models.Model):
@@ -36,7 +36,7 @@ class Order(models.Model):
         'Country', blank=False, null=False, max_length=25, db_index=True, default='United State'
     )
     telephone = models.IntegerField(
-        'Telephone', blank=True, null=True, db_index=True
+        'Telephone', blank=True, null=True, db_index=True, max_length = 25
     )
     created_at = models.DateTimeField(
         'Created At', blank=True, auto_now_add=True
