@@ -302,7 +302,7 @@ Images
   border-radius: 10px;
   box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
   width: 350px;
-  height: 410px;
+  height: 470px;
 }
 
 @media screen and (max-width: 900px) {
@@ -342,7 +342,7 @@ ul.items .carts {
 }
 ul.items li img.item-image {
   width: 100%;
-  height: 68%;
+  height: 320px;
 }
 
 ul.items li .info {
@@ -393,8 +393,8 @@ ul.items li .info .info-bottom .add {
 
 ul.items li .info .info-bottom .number {
   border: 1 px solid #f43103;
-  font-size: 20px;
-  padding: 1px 30px;
+  font-size: 25px;
+  padding: 2px 34px;
   color: #e4e4e4;
   background-color: #f43103;
   position: relative;
